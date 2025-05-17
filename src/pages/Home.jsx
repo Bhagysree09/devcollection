@@ -1,286 +1,254 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaCalculator, FaFileInvoiceDollar, FaChartLine, FaHandshake } from 'react-icons/fa';
+import { MdSecurity, MdSupportAgent } from 'react-icons/md';
+import { motion } from 'framer-motion';
 
 const Home = () => {
-  const [communicationPreferences, setCommunicationPreferences] = useState(false);
-
-  const categories = [
-    {
-      title: 'Clothing',
-      description: 'Discover our latest fashion collection',
-      image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80',
-    },
-    {
-      title: 'Footwear',
-      description: 'Step into style with our footwear',
-      image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
-    },
-    {
-      title: 'Leather Goods',
-      description: 'Premium leather accessories',
-      image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80',
-    },
-  ];
-
-  const offers = [
-    {
-      title: 'Summer Collection 2024',
-      description: 'Get up to 50% off on selected items',
-      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    },
-    {
-      title: 'New Arrivals',
-      description: 'Check out our latest collection',
-      image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    },
-  ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    console.log('Form submitted with communication preferences:', communicationPreferences);
-  };
-
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="relative bg-gray-900 h-[600px]">
-        <img
-          src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-          alt="Hero Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-        />
-        <div className="relative container mx-auto px-6 py-32 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
-            Welcome to Dev Collection
-          </h1>
-          <p className="text-xl text-gray-200 mb-8 animate-fade-in-delay">
-            Discover the latest trends in fashion and style
-          </p>
-          <Link
-            to="/signup"
-            className="bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 transition duration-300 transform hover:scale-105 animate-fade-in-delay-2"
-          >
-            Shop Now
-          </Link>
-        </div>
-      </div>
-
-      {/* Featured Categories */}
-      <div className="container mx-auto px-6 py-20">
-        <h2 className="text-3xl font-bold text-center mb-16">Featured Categories</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {categories.map((category, index) => (
-            <div key={index} className="group relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
+      {/* Hero Banner */}
+      <section className="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80')] opacity-10"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                Expert Taxation Services for Your Business
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 text-blue-100">
+                Your trusted partner for all tax-related services. We help businesses and individuals navigate complex tax regulations with ease.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="/contact"
+                  className="bg-white text-blue-600 px-8 py-4 rounded-md text-lg font-semibold hover:bg-blue-50 transition duration-300 text-center"
+                >
+                  Get Started
+                </Link>
+                <Link
+                  to="/services"
+                  className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-md text-lg font-semibold hover:bg-white/10 transition duration-300 text-center"
+                >
+                  Our Services
+                </Link>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="hidden md:block"
+            >
               <img
-                src={category.image}
-                alt={category.title}
-                className="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500"
+                src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+                alt="Tax Services"
+                className="rounded-lg shadow-2xl"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-center items-center text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-2xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{category.title}</h3>
-                <p className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">{category.description}</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold mb-6">About SAI ACCOUNTS CARE</h2>
+              <p className="text-gray-600 mb-4">
+                We are a leading provider of taxation services, dedicated to helping individuals and businesses navigate the complexities of tax laws and regulations.
+              </p>
+              <p className="text-gray-600 mb-6">
+                Our mission is to provide exceptional taxation services that exceed our clients' expectations and help them achieve their financial goals.
+              </p>
+              <Link
+                to="/about"
+                className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-300"
+              >
+                Learn More About Us
+              </Link>
+            </div>
+            <div className="relative">
+              <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
+                <img
+                  src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  alt="Office"
+                  className="object-cover w-full h-full"
+                />
               </div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-
-      {/* Special Offers */}
-      <div className="bg-gray-100 py-20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16">Special Offers</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {offers.map((offer, index) => (
-              <div key={index} className="relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
-                <img
-                  src={offer.image}
-                  alt={offer.title}
-                  className="w-full h-96 object-cover transform hover:scale-105 transition duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-8">
-                  <h3 className="text-2xl font-bold text-white mb-2 transform translate-y-4 hover:translate-y-0 transition-transform duration-300">{offer.title}</h3>
-                  <p className="text-gray-200 mb-4 transform translate-y-4 hover:translate-y-0 transition-transform duration-300 delay-100">{offer.description}</p>
-                  <Link
-                    to="/signup"
-                    className="bg-white text-gray-900 px-6 py-2 rounded-md hover:bg-gray-100 transition duration-300 inline-block transform translate-y-4 hover:translate-y-0 transition-transform duration-300 delay-200"
-                  >
-                    Learn More
-                  </Link>
+      </section>
+      {/* Why Choose Us */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us</h2>
+          </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <FaCalculator />,
+                title: "Expert Team",
+                description: "Our team of experienced tax professionals provides expert guidance and solutions."
+              },
+              {
+                icon: <MdSecurity />,
+                title: "Personalized Service",
+                description: "We provide tailored solutions to meet your unique tax needs and requirements."
+              },
+              {
+                icon: <FaHandshake />,
+                title: "Confidentiality",
+                description: "We maintain the highest level of confidentiality and data protection."
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <div className="text-blue-600 text-4xl mb-4">
+                  {item.icon}
                 </div>
-              </div>
+                <h3 className="text-xl font-semibold mb-4">{item.title}</h3>
+                <p className="text-gray-600">
+                  {item.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Get in Touch Section */}
-      <div className="bg-gray-150 py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Get in Touch</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="space-y-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                      <a href="tel:+918826691389" className="text-gray-600 hover:text-indigo-600">
-                        +91 8826691389
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                      <a href="mailto:hanumanji4560@gmail.com" className="text-gray-600 hover:text-indigo-600">
-                        hanumanji4560@gmail.com
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Address</h3>
-                      <p className="text-gray-600">
-                        SHOP NO-2 802/28, ROHTAK,<br />
-                        BHARAT COLONY, HARYANA,<br />
-                        24001
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">WhatsApp</h3>
-                      <a href="https://wa.me/918826691389" className="text-gray-600 hover:text-indigo-600">
-                        Chat with us on WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </div>
+      {/* Our Services */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Services</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-blue-600 text-4xl mb-4">
+                <FaFileInvoiceDollar />
               </div>
-
-              {/* Contact Form */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      required
-                      placeholder="+91 XXXXXXXXXX"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="4"
-                      required
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    ></textarea>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="communicationPreferences"
-                        name="communicationPreferences"
-                        type="checkbox"
-                        checked={communicationPreferences}
-                        onChange={(e) => setCommunicationPreferences(e.target.checked)}
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label htmlFor="communicationPreferences" className="font-medium text-gray-700">
-                        I would like to receive communications via SMS, Email, OBD, Google RCS, and Whatsapp for my service, offers, and updates.
-                      </label>
-                      <p className="text-gray-500">
-                        By checking this box, you agree to our{' '}
-                        <Link to="/privacy-policy" className="text-indigo-600 hover:text-indigo-500">
-                          Privacy Policy
-                        </Link>
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </form>
+              <h3 className="text-xl font-semibold mb-4">Tax Preparation</h3>
+              <p className="text-gray-600 mb-4">
+                Individual and business tax return preparation
+              </p>
+              <Link to="/services" className="text-blue-600 hover:text-blue-800">
+                Learn More →
+              </Link>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-blue-600 text-4xl mb-4">
+                <FaChartLine />
               </div>
+              <h3 className="text-xl font-semibold mb-4">Tax Planning</h3>
+              <p className="text-gray-600 mb-4">
+                Strategic tax planning to minimize liabilities
+              </p>
+              <Link to="/services" className="text-blue-600 hover:text-blue-800">
+                Learn More →
+              </Link>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-blue-600 text-4xl mb-4">
+                <MdSupportAgent />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Tax Audit</h3>
+              <p className="text-gray-600 mb-4">
+                Representation during tax audits and disputes
+              </p>
+              <Link to="/services" className="text-blue-600 hover:text-blue-800">
+                Learn More →
+              </Link>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="text-blue-600 text-4xl mb-4">
+                <FaCalculator />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">International Tax</h3>
+              <p className="text-gray-600 mb-4">
+                Expertise in international tax laws and regulations
+              </p>
+              <Link to="/services" className="text-blue-600 hover:text-blue-800">
+                Learn More →
+              </Link>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* About Us Preview */}
+
+
+      {/* Testimonials */}
+      <section className="py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">What Our Clients Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/men/1.jpg"
+                  alt="Client"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <p className="font-semibold">John Smith</p>
+                  <p className="text-gray-600 text-sm">Business Owner</p>
+                </div>
+              </div>
+              <p className="text-gray-600">
+                "SAI ACCOUNTS CARE has been instrumental in helping our business navigate complex tax regulations. Their expertise and professionalism are unmatched."
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/women/1.jpg"
+                  alt="Client"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <p className="font-semibold">Sarah Johnson</p>
+                  <p className="text-gray-600 text-sm">Individual Client</p>
+                </div>
+              </div>
+              <p className="text-gray-600">
+                "The team at SAI ACCOUNTS CARE provides excellent service and always goes above and beyond to ensure our tax needs are met."
+              </p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="flex items-center mb-4">
+                <img
+                  src="https://randomuser.me/api/portraits/men/2.jpg"
+                  alt="Client"
+                  className="w-12 h-12 rounded-full mr-4"
+                />
+                <div>
+                  <p className="font-semibold">Michael Brown</p>
+                  <p className="text-gray-600 text-sm">Corporate Client</p>
+                </div>
+              </div>
+              <p className="text-gray-600">
+                "Their attention to detail and personalized approach make them the best tax consultants in the region."
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
