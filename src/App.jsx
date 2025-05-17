@@ -6,9 +6,11 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Footer from './components/Footer';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-
+import Contact from './pages/Contact';
+import Services from './pages/Services';
+import Blog from './pages/Blog';
+import Gallery from './pages/Gallery';
+import Offer from './pages/Offer';
 function App() {
   return (
     <Router>
@@ -29,8 +31,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/offer" element={<Offer />} />
           </Routes>
         </main>
         <Footer />

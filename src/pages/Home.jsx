@@ -1,286 +1,229 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const reviews = [
+  {
+    name: 'Rajesh Patel',
+    text: 'Skill India Education transformed my career with practical training and relevant industry skills. Highly recommended!'
+  },
+  {
+    name: 'Priya Mehta',
+    text: 'I had a wonderful experience at Skill India Education. The instructors were knowledgeable and supportive.'
+  },
+  {
+    name: 'Amit Sharma',
+    text: 'Skill India Education is doing an exceptional job in bridging the gap between education and industry.'
+  }
+];
+
+const stats = [
+  { value: 12, label: 'Specialists in demand', icon: '👨‍🔬' },
+  { value: 8, label: 'Completed projects', icon: '✅' },
+  { value: 220, label: 'Satisfied customers', icon: '😊' },
+  { value: 5, label: 'Awards received', icon: '🏆' },
+];
+
+const features = [
+  {
+    icon: '🤝',
+    title: 'Partnership Initiatives',
+    desc: 'Skill India Education partners with Government initiatives, ensuring alignment with national standards and support.'
+  },
+  {
+    icon: '📜',
+    title: 'Accredited Certification',
+    desc: "The company offers accredited certification courses, enhancing students' employability with recognized credentials."
+  },
+  {
+    icon: '👨‍🏫',
+    title: 'Experienced Instructors',
+    desc: 'The team consists of experienced professionals and industry experts who bring practical knowledge and passion for skill development.'
+  },
+  {
+    icon: '🛠️',
+    title: 'Focus on Practical Training',
+    desc: 'Skill India Education emphasizes hands-on experience alongside theoretical knowledge.'
+  },
+];
+
+// Animated Counter Hook
+function useCountUp(end, duration = 1200) {
+  const [count, setCount] = useState(0);
+  const ref = useRef();
+  useEffect(() => {
+    let start = 0;
+    const increment = end / (duration / 16);
+    function update() {
+      start += increment;
+      if (start < end) {
+        setCount(Math.floor(start));
+        ref.current = requestAnimationFrame(update);
+      } else {
+        setCount(end);
+        cancelAnimationFrame(ref.current);
+      }
+    }
+    update();
+    return () => cancelAnimationFrame(ref.current);
+  }, [end, duration]);
+  return count;
+}
+
 const Home = () => {
-  const [communicationPreferences, setCommunicationPreferences] = useState(false);
-
-  const categories = [
-    {
-      title: 'Clothing',
-      description: 'Discover our latest fashion collection',
-      image: 'https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80',
-    },
-    {
-      title: 'Footwear',
-      description: 'Step into style with our footwear',
-      image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80',
-    },
-    {
-      title: 'Leather Goods',
-      description: 'Premium leather accessories',
-      image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80',
-    },
-  ];
-
-  const offers = [
-    {
-      title: 'Summer Collection 2024',
-      description: 'Get up to 50% off on selected items',
-      image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    },
-    {
-      title: 'New Arrivals',
-      description: 'Check out our latest collection',
-      image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-    },
-  ];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    console.log('Form submitted with communication preferences:', communicationPreferences);
-  };
+  // Animated counters for stats
+  const counts = stats.map(stat => useCountUp(stat.value, 1200));
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100">
       {/* Hero Section */}
-      <div className="relative bg-gray-900 h-[600px]">
-        <img
-          src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-          alt="Hero Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
-        />
-        <div className="relative container mx-auto px-6 py-32 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-fade-in">
-            Welcome to Dev Collection
+      <div className="relative overflow-hidden pt-16 pb-12 flex flex-col md:flex-row items-center justify-between container mx-auto px-6">
+        <div className="md:w-1/2 z-10 animate-fade-in-up">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-indigo-800 mb-6 leading-tight animate-typing overflow-hidden whitespace-nowrap border-r-4 border-indigo-600 pr-4" style={{animation: 'typing 2s steps(30, end), blink-caret .75s step-end infinite'}}>
+            Empower Your Future
           </h1>
-          <p className="text-xl text-gray-200 mb-8 animate-fade-in-delay">
-            Discover the latest trends in fashion and style
+          <p className="text-lg text-gray-700 mb-8 animate-fade-in-up delay-200">
+            Empowering individuals through vocational education and training, SkillIndia Education bridges the gap between education and industry for enhanced employability.
           </p>
-          <Link
-            to="/signup"
-            className="bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 transition duration-300 transform hover:scale-105 animate-fade-in-delay-2"
-          >
-            Shop Now
+          <Link to="/contact" className="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-indigo-700 transition transform hover:scale-105 animate-fade-in-up delay-300">
+            Get Started
           </Link>
+        </div>
+        <div className="md:w-1/2 flex justify-center mt-10 md:mt-0 animate-fade-in-up delay-500">
+          <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=600&q=80" alt="Empower" className="rounded-3xl shadow-2xl w-full max-w-md scale-105 hover:scale-110 transition-transform duration-500" />
+        </div>
+        {/* Animated background shapes */}
+        <div className="absolute top-0 left-0 w-72 h-72 bg-indigo-100 rounded-full opacity-40 -z-10 blur-2xl animate-float-slow" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-200 rounded-full opacity-30 -z-10 blur-2xl animate-float-slower" />
+      </div>
+
+      {/* About our company - Redesigned */}
+      <div className="container mx-auto px-6 py-16 animate-fade-in-up delay-200">
+        <div className="flex flex-col md:flex-row items-center bg-white rounded-3xl shadow-2xl p-8 md:p-16 gap-8 md:gap-16">
+          <div className="md:w-1/2 mb-8 md:mb-0 animate-fade-in-up delay-300 flex justify-center">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="About" className="rounded-2xl shadow-xl w-full max-w-md border-4 border-indigo-100" />
+          </div>
+          <div className="md:w-1/2 md:pl-12 animate-fade-in-up delay-400 flex flex-col justify-center">
+            <h2 className="text-4xl font-extrabold text-indigo-800 mb-4 flex items-center gap-2">
+              <span className="inline-block bg-indigo-100 p-2 rounded-full text-2xl">🏢</span>
+              About
+            </h2>
+            <p className="text-gray-700 mb-4 text-lg leading-relaxed">
+              <span className="font-semibold text-indigo-700">Skill India Education</span> (Nadiad, Gujarat) empowers individuals through vocational training. As a partner of the Government of India's NSDC, we provide accredited courses that enhance employability. Our experienced instructors foster a dynamic learning environment, equipping students with practical skills to thrive in a competitive job market and contribute to economic growth.
+            </p>
+            <div className="flex flex-wrap gap-4 mt-4">
+              <span className="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold shadow">Accredited</span>
+              <span className="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold shadow">Industry Focused</span>
+              <span className="bg-indigo-50 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold shadow">Skill Development</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Featured Categories */}
-      <div className="container mx-auto px-6 py-20">
-        <h2 className="text-3xl font-bold text-center mb-16">Featured Categories</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {categories.map((category, index) => (
-            <div key={index} className="group relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
-              <img
-                src={category.image}
-                alt={category.title}
-                className="w-full h-80 object-cover transform group-hover:scale-110 transition duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-center items-center text-white p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-2xl font-bold mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">{category.title}</h3>
-                <p className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">{category.description}</p>
+      {/* Key Stats - Animated Counting */}
+      <div className="bg-indigo-50 py-12 animate-fade-in-up delay-300">
+        <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {stats.map((stat, idx) => (
+            <div key={stat.label} className="flex flex-col items-center animate-bounce-in" style={{animationDelay: `${0.2 * idx}s`}}>
+              <div className="text-5xl font-extrabold text-indigo-700 mb-2 animate-countup flex items-center gap-2">
+                <span>{stat.icon}</span>
+                <span>{counts[idx]}</span>
               </div>
+              <div className="text-gray-600 text-base font-medium">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Special Offers */}
-      <div className="bg-gray-100 py-20">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-16">Special Offers</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {offers.map((offer, index) => (
-              <div key={index} className="relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
-                <img
-                  src={offer.image}
-                  alt={offer.title}
-                  className="w-full h-96 object-cover transform hover:scale-105 transition duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-8">
-                  <h3 className="text-2xl font-bold text-white mb-2 transform translate-y-4 hover:translate-y-0 transition-transform duration-300">{offer.title}</h3>
-                  <p className="text-gray-200 mb-4 transform translate-y-4 hover:translate-y-0 transition-transform duration-300 delay-100">{offer.description}</p>
-                  <Link
-                    to="/signup"
-                    className="bg-white text-gray-900 px-6 py-2 rounded-md hover:bg-gray-100 transition duration-300 inline-block transform translate-y-4 hover:translate-y-0 transition-transform duration-300 delay-200"
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Why us */}
+      <div className="container mx-auto px-6 py-16 animate-fade-in-up delay-400">
+        <h2 className="text-2xl font-bold text-center text-indigo-800 mb-12">Why us?</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {features.map((feature, idx) => (
+            <div key={feature.title} className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-300 animate-fade-in-up" style={{animationDelay: `${0.1 * idx + 0.5}s`}}>
+              <div className="text-indigo-600 text-4xl mb-4 animate-wiggle">{feature.icon}</div>
+              <h3 className="font-semibold mb-2 text-lg">{feature.title}</h3>
+              <p className="text-gray-600 text-sm">{feature.desc}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Get in Touch Section */}
-      <div className="bg-gray-150 py-16">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Get in Touch</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <div className="space-y-8">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                      <a href="tel:+918826691389" className="text-gray-600 hover:text-indigo-600">
-                        +91 8826691389
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                      <a href="mailto:hanumanji4560@gmail.com" className="text-gray-600 hover:text-indigo-600">
-                        hanumanji4560@gmail.com
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">Address</h3>
-                      <p className="text-gray-600">
-                        SHOP NO-2 802/28, ROHTAK,<br />
-                        BHARAT COLONY, HARYANA,<br />
-                        24001
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="bg-indigo-100 p-3 rounded-full">
-                        <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900">WhatsApp</h3>
-                      <a href="https://wa.me/918826691389" className="text-gray-600 hover:text-indigo-600">
-                        Chat with us on WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </div>
+      {/* Connect with Us - Redesigned */}
+      <div className="bg-gradient-to-r from-indigo-200 via-indigo-100 to-white py-16 animate-fade-in-up delay-500">
+        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="mb-8 md:mb-0 md:w-1/2 animate-fade-in-up delay-600 flex flex-col items-start">
+            <h2 className="text-3xl font-extrabold text-indigo-800 mb-4 flex items-center gap-2">
+              <span className="inline-block bg-indigo-100 p-2 rounded-full text-2xl">📞</span>
+              Connect with Us
+            </h2>
+            <p className="text-gray-700 mb-4 text-lg">Have questions or want to know more? Reach out to us for guidance, support, or partnership opportunities.</p>
+            <Link to="/contact" className="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:bg-indigo-700 transition transform hover:scale-105 flex items-center gap-2">
+              <span>Contact</span>
+              <span className="text-xl">→</span>
+            </Link>
+          </div>
+          <div className="md:w-1/2 flex justify-center animate-fade-in-up delay-700">
+            <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center w-full max-w-md">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="bg-indigo-100 p-3 rounded-full text-2xl">📧</span>
+                <span className="text-gray-700 font-semibold">ni.valpichal6@gmail.com</span>
               </div>
-
-              {/* Contact Form */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      required
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      required
-                      placeholder="+91 XXXXXXXXXX"
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows="4"
-                      required
-                      className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    ></textarea>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <input
-                        id="communicationPreferences"
-                        name="communicationPreferences"
-                        type="checkbox"
-                        checked={communicationPreferences}
-                        onChange={(e) => setCommunicationPreferences(e.target.checked)}
-                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label htmlFor="communicationPreferences" className="font-medium text-gray-700">
-                        I would like to receive communications via SMS, Email, OBD, Google RCS, and Whatsapp for my service, offers, and updates.
-                      </label>
-                      <p className="text-gray-500">
-                        By checking this box, you agree to our{' '}
-                        <Link to="/privacy-policy" className="text-indigo-600 hover:text-indigo-500">
-                          Privacy Policy
-                        </Link>
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </form>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="bg-indigo-100 p-3 rounded-full text-2xl">📱</span>
+                <span className="text-gray-700 font-semibold">+91-9925544864</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="bg-indigo-100 p-3 rounded-full text-2xl">📍</span>
+                <span className="text-gray-700 font-semibold">Paras Circle, SH 61, Janorepura Road, Nadiad, Gujarat 387001</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Reviews - Redesigned */}
+      <div className="container mx-auto px-6 py-16 animate-fade-in-up delay-600">
+        <h2 className="text-3xl font-extrabold text-center text-indigo-800 mb-12 flex items-center justify-center gap-2">
+          <span className="inline-block bg-indigo-100 p-2 rounded-full text-2xl">⭐</span>
+          Reviews & Feedback
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {reviews.map((review, idx) => (
+            <div key={idx} className="bg-white rounded-2xl shadow-lg p-8 text-center animate-fade-in-up hover:shadow-2xl transition-all duration-300" style={{animationDelay: `${0.2 * idx + 0.7}s`}}>
+              <div className="mb-4 flex flex-col items-center">
+                <div className="w-16 h-16 mx-auto rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-3xl font-bold shadow-md animate-pop mb-2 border-2 border-indigo-200">{review.name[0]}</div>
+                <span className="text-indigo-700 font-semibold">{review.name}</span>
+              </div>
+              <p className="italic text-gray-700 mb-2 text-lg">“{review.text}”</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Custom Animations (Tailwind CSS plugin or custom CSS required) */}
+      <style>{`
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { 50% { border-color: transparent } }
+        .animate-typing { animation: typing 2s steps(30, end) 1s 1 normal both, blink-caret .75s step-end infinite; }
+        .animate-fade-in-up { opacity: 0; transform: translateY(40px); animation: fadeInUp 1s forwards; }
+        .animate-fade-in-up.delay-200 { animation-delay: 0.2s; }
+        .animate-fade-in-up.delay-300 { animation-delay: 0.3s; }
+        .animate-fade-in-up.delay-400 { animation-delay: 0.4s; }
+        .animate-fade-in-up.delay-500 { animation-delay: 0.5s; }
+        .animate-fade-in-up.delay-600 { animation-delay: 0.6s; }
+        .animate-fade-in-up.delay-700 { animation-delay: 0.7s; }
+        @keyframes fadeInUp { to { opacity: 1; transform: none; } }
+        .animate-bounce-in { animation: bounceIn 1s both; }
+        @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.8); } 60% { opacity: 1; transform: scale(1.05); } 100% { transform: scale(1); } }
+        .animate-wiggle { animation: wiggle 1.2s infinite; }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .animate-pop { animation: pop 0.6s cubic-bezier(.36,1.64,.56,1) both; }
+        @keyframes pop { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .animate-float-slow { animation: floatSlow 8s ease-in-out infinite alternate; }
+        .animate-float-slower { animation: floatSlower 12s ease-in-out infinite alternate; }
+        @keyframes floatSlow { 0% { transform: translateY(0); } 100% { transform: translateY(-30px); } }
+        @keyframes floatSlower { 0% { transform: translateY(0); } 100% { transform: translateY(40px); } }
+      `}</style>
     </div>
   );
 };
